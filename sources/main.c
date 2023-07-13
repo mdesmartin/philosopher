@@ -6,7 +6,7 @@
 /*   By: mdesmart <mdesmart@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 14:58:17 by mdesmart          #+#    #+#             */
-/*   Updated: 2023/06/28 15:17:50 by mdesmart         ###   ########lyon.fr   */
+/*   Updated: 2023/07/11 12:54:04 by mdesmart         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@ int main(int argc, char **argv)
 
 	if (!check_arg(argc, argv))
 	{
-		init_structures(&data, argv);
-		philo_launcher(&data);
+		if (!init_data(&data, argv))
+			philo_launcher(&data);
 	}
 	return (0);
 }

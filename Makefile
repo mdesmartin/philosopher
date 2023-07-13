@@ -13,8 +13,9 @@ DIR_SRC =	sources/
 LST_SRC =	main.c				\
 			check_arg.c			\
 			utils.c				\
-			init_data.c		\
-			philo_launcher.c
+			philo_launcher.c	\
+			init_structures.c	\
+			init_philosophers.c
 			
 SOURCES	=	$(addprefix $(DIR_SRC), $(LST_SRC))
 

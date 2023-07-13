@@ -6,7 +6,7 @@
 /*   By: mdesmart <mdesmart@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 17:11:58 by mdesmart          #+#    #+#             */
-/*   Updated: 2023/06/28 13:33:45 by mdesmart         ###   ########lyon.fr   */
+/*   Updated: 2023/07/10 06:58:05 by mdesmart         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,16 +40,3 @@ int	check_arg(int argc, char **argv)
 	}
 	return (0);
 }
-
-size_t	ft_strlen(const char *s)
-{
-	size_t	i;
-
-	i = 0;
-	if (!s)
-		return (i);
-	while (s[i] != '\0')
-		i++;
-	return (i);
-}
-

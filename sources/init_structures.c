@@ -12,27 +12,28 @@
 
 #include "../philosopher.h"
 
-void	init_structures(t_data *process, t_thread *philosophers, char **argv)
+// a malloc ??
+void init_rules(t_data *data, char **argv)
 {
-	init_data(process, argv);
-	init_philosophers(philosophers, *process);
-}
+	t_rules	rules;
 
-void init_data(t_data *process, char **argv)
-{
-	process->nb_of_philo = ft_atoi(argv[1]);
-	process->time_to_die = ft_atoi(argv[2]);
-	process->time_to_eat = ft_atoi(argv[3]);
-	process->time_to_sleep = ft_atoi(argv[4]);
+	rules.nb_of_philo = ft_atoi(argv[1]);
+	rules.time_to_die = ft_atoi(argv[2]);
+	rules.time_to_eat = ft_atoi(argv[3]);
+	rules.time_to_sleep = ft_atoi(argv[4]);
 	if (argv[5])
-		process->number_of_eat = ft_atoi(argv[5]);
+		rules.number_of_eat = ft_atoi(argv[5]);
 	else
-		process->number_of_eat = -1;
+		rules.number_of_eat = -1;
+	data->rules = rules;
 }
 
-void	init_philosophers(t_thread *philosophers, t_data process)
+int	init_data(t_data *data, char **argv)
 {
-	philosophers = malloc(sizeof(t_thread) * (process.nb_of_philo + 1));
-	if (!philosophers)
-		return (NULL);
+	init_rules(data, argv);
+	if (!init_philosophers(data, data->rules))
+		return (1);//do something for the error
+	return (0);
 }
+
+//perhaps inverse left and right

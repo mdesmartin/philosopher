@@ -6,7 +6,7 @@
 /*   By: mdesmart <mdesmart@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 16:27:17 by mvogel            #+#    #+#             */
-/*   Updated: 2023/06/28 13:34:16 by mdesmart         ###   ########lyon.fr   */
+/*   Updated: 2023/07/10 06:57:48 by mdesmart         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,4 +52,16 @@ int	ft_isdigit(int c)
 		return (1);
 	else
 		return (0);
+}
+
+size_t	ft_strlen(const char *s)
+{
+	size_t	i;
+
+	i = 0;
+	if (!s)
+		return (i);
+	while (s[i] != '\0')
+		i++;
+	return (i);
 }
