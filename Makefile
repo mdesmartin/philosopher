@@ -1,7 +1,7 @@
 NAME = philosopher
 DEBUG = no
 
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -pthread
 DFLAGS = -g3 -fsanitize=leak -fsanitize=address -fsanitize=pointer-subtract -fsanitize=pointer-compare -fsanitize=undefined
 
 ifeq ($(DEBUG), yes)
@@ -12,10 +12,13 @@ DIR_SRC =	sources/
 
 LST_SRC =	main.c				\
 			check_arg.c			\
+			eat.c				\
 			utils.c				\
+			utils_lib.c			\
 			philo_launcher.c	\
 			init_structures.c	\
-			init_philosophers.c
+			init_philosophers.c \
+			time.c
 			
 SOURCES	=	$(addprefix $(DIR_SRC), $(LST_SRC))
 

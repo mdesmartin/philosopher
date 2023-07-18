@@ -13,7 +13,7 @@
 #include "../philosopher.h"
 
 // a malloc ??
-void init_rules(t_data *data, char **argv)//to complete
+int init_rules(t_data *data, char **argv)//to complete
 {
 	t_rules	rules;
 
@@ -24,16 +24,22 @@ void init_rules(t_data *data, char **argv)//to complete
 	if (argv[5])
 		rules.must_eat_time = ft_atoi(argv[5]);
 	else
-		rules.must_eat_time = -1;
+		rules.must_eat_time = 0;
+	if (pthread_mutex_init(&rules.m_all_philo_created, NULL) != 0)
+		return (1);
+	if (pthread_mutex_init(&rules.m_one_philo_died, NULL) != 0)
+		return (1);
+	rules.one_philo_died = 0;
 	data->rules = rules;
+	return (0);
 }
 
 int	init_data(t_data *data, char **argv)
 {
 	init_rules(data, argv);
-	if (!init_philosophers(data, data->rules))
+	// printf("data1\n");
+	if (init_philosophers(data, data->rules))
 		return (1);//do something for the error
+	// printf("data2\n");
 	return (0);
 }
-
-//perhaps inverse left and right

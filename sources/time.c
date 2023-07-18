@@ -1,25 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check_mutex.c                                      :+:      :+:    :+:   */
+/*   time.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mdesmart <mdesmart@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/17 16:30:46 by mdesmart          #+#    #+#             */
-/*   Updated: 2023/07/17 16:34:58 by mdesmart         ###   ########lyon.fr   */
+/*   Created: 2023/07/18 15:00:19 by mdesmart          #+#    #+#             */
+/*   Updated: 2023/07/18 15:47:14 by mdesmart         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../philosopher.h"
 
-int	check_mutex(pthread_mutex_t *mutex, int *mutex_value)
+int	timestamp_in_ms(t_rules *rules)
 {
-	int	res;
+	struct timeval	current_time;
+	struct timeval	timestamp;
+	int				timestamp_in_ms;
 
-	res = 0;
-	pthread_mutex_lock(mutex);
-	if (*mutex_value == 1)
-		res = 1;
-	pthread_mutex_unlock(mutex);
-	return (res);
+	gettimeofday(&current_time, NULL);
+	timestamp.tv_sec = current_time.tv_sec - rules->begin_time.tv_sec;
+	timestamp.tv_usec = current_time.tv_usec - rules->begin_time.tv_usec;
+	timestamp_in_ms = (timestamp.tv_sec * 1000) + (timestamp.tv_usec / 1000);
+	return (timestamp_in_ms);
 }

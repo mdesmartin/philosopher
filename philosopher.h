@@ -6,17 +6,17 @@
 /*   By: mdesmart <mdesmart@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 17:20:50 by mdesmart          #+#    #+#             */
-/*   Updated: 2023/07/17 17:21:53 by mdesmart         ###   ########lyon.fr   */
+/*   Updated: 2023/07/18 15:58:55 by mdesmart         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PHILOSOPHER_H
 # define PHILOSOPHER_H
-#include <unistd.h>
-#include <pthread.h>
-#include <stdlib.h>
-#include <stdio.h>
-#include <sys/time.h>
+# include <unistd.h>
+# include <pthread.h>
+# include <stdlib.h>
+# include <stdio.h>
+# include <sys/time.h>
 
 /********************************  structrures  *******************************/
 
@@ -31,7 +31,7 @@ typedef struct s_rules
 	pthread_mutex_t m_all_philo_created;
 	pthread_mutex_t	m_one_philo_died;
 	int				one_philo_died;
-
+	struct timeval	begin_time;
 }				t_rules;
 
 typedef struct s_philosopher
@@ -43,7 +43,7 @@ typedef struct s_philosopher
 	pthread_mutex_t *m_right_fork;
 	int 			*right_fork;//pointeur vers la fourchette du voisin de droite
 	int				nb_of_meals;
-	struct timeval	last_meal;
+	int				last_meal_in_ms;
 	t_rules			*rules;
 }				t_philosopher;
 
@@ -61,6 +61,7 @@ int		check_arg(int argc, char **argv);
 int		philo_launcher(t_data *data);
 void	eat(t_philosopher *philosopher);
 int		check_mutex(pthread_mutex_t *mutex, int *mutex_value);
+int		timestamp_in_ms(t_rules *rules);
 
 /***********************************  UTILS  **********************************/
 
@@ -68,5 +69,6 @@ void	ft_putstr_fd(char *s, int fd);
 int		ft_atoi(const char *str);
 int		ft_isdigit(int c);
 size_t	ft_strlen(const char *s);
+void	display_logs(t_rules *rules, int philo_id, char *log);
 
 #endif
