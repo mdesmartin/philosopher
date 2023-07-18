@@ -6,7 +6,7 @@
 /*   By: mdesmart <mdesmart@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 17:11:58 by mdesmart          #+#    #+#             */
-/*   Updated: 2023/07/10 06:58:05 by mdesmart         ###   ########lyon.fr   */
+/*   Updated: 2023/07/13 13:31:16 by mdesmart         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ int	print_error(char *message)
 	return (1);
 }
 
+//if -60 warning "its not gonna work properly"
 int	check_arg(int argc, char **argv)
 {
 	int i;
@@ -32,8 +33,8 @@ int	check_arg(int argc, char **argv)
 		j = 0;
 		while (argv[i][j])
 		{
-			if (!ft_isdigit(argv[i][j]))
-				return (print_error("one arg is not a digit\n"));
+			if (!ft_isdigit(argv[i][j]) || argv[i][j] <= 0)
+				return (print_error("one arg is not a valid number\n"));
 			j++;
 		}
 		i++;

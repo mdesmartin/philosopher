@@ -13,7 +13,7 @@
 #include "../philosopher.h"
 
 // a malloc ??
-void init_rules(t_data *data, char **argv)
+void init_rules(t_data *data, char **argv)//to complete
 {
 	t_rules	rules;
 
@@ -22,9 +22,9 @@ void init_rules(t_data *data, char **argv)
 	rules.time_to_eat = ft_atoi(argv[3]);
 	rules.time_to_sleep = ft_atoi(argv[4]);
 	if (argv[5])
-		rules.number_of_eat = ft_atoi(argv[5]);
+		rules.must_eat_time = ft_atoi(argv[5]);
 	else
-		rules.number_of_eat = -1;
+		rules.must_eat_time = -1;
 	data->rules = rules;
 }
 

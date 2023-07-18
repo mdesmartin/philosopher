@@ -6,7 +6,7 @@
 /*   By: mdesmart <mdesmart@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/10 07:57:47 by mdesmart          #+#    #+#             */
-/*   Updated: 2023/07/11 12:58:45 by mdesmart         ###   ########lyon.fr   */
+/*   Updated: 2023/07/17 18:17:28 by mdesmart         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	give_right_fork(t_philosopher *philosopher, int nb_of_philo)
 	{
 		philosopher[i].left_fork = 0;
 		pthread_mutex_init(&philosopher[i].m_left_fork, NULL);
-		pthread_mutex_lock(&philosopher[i].m_left_fork);
+		// pthread_mutex_lock(&philosopher[i].m_left_fork);
 		i++;
 	}
 }
