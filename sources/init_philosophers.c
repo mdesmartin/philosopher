@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_philosophers.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mdesmart <mdesmart@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: mvogel <mvogel@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/10 07:57:47 by mdesmart          #+#    #+#             */
-/*   Updated: 2023/07/18 14:20:51 by mdesmart         ###   ########lyon.fr   */
+/*   Updated: 2023/07/18 16:50:46 by mvogel           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,15 +46,15 @@ void	give_right_fork(t_philosopher *philosopher, int nb_of_philo)
 	i = 0;
 	while (i < nb_of_philo)
 	{
-		if (i == 0)
+		if (i == nb_of_philo - 1)
 		{
-			philosopher[i].right_fork = philosopher[nb_of_philo - 1].right_fork;
-			philosopher[i].m_right_fork = philosopher[nb_of_philo - 1].m_right_fork;
+			philosopher[i].right_fork = &philosopher[0].left_fork;
+			philosopher[i].m_right_fork = &philosopher[0].m_left_fork;
 		}
 		else
 		{
-			philosopher[i].right_fork = philosopher[i - 1].right_fork;
-			philosopher[i].m_right_fork = philosopher[i - 1].m_right_fork;
+			philosopher[i].right_fork = &philosopher[i + 1].left_fork;
+			philosopher[i].m_right_fork = &philosopher[i + 1].m_left_fork;
 		}
 		i++;
 	}
@@ -71,20 +71,6 @@ void	give_rules(t_data *data, t_philosopher *philosopher, int nb_of_philo)
 		i++;
 	}
 } 
-
-// int malloc_philosophers(t_philosopher *philosopher, int nb_of_philo)
-// {
-// 	int	i;
-
-// 	i = 0;
-// 	while (i < nb_of_philo)
-// 	{
-// 		philosopher[i] = malloc(sizeof(t_philosopher));
-// 		if (!philosopher[i])
-// 			return (1);
-// 		i++;
-// 	}
-// }
 
 int	init_philosophers(t_data *data, t_rules rules)
 {

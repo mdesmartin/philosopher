@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   time.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mdesmart <mdesmart@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: mvogel <mvogel@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 15:00:19 by mdesmart          #+#    #+#             */
-/*   Updated: 2023/07/18 15:47:14 by mdesmart         ###   ########lyon.fr   */
+/*   Updated: 2023/07/18 17:29:45 by mvogel           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,3 +24,4 @@ int	timestamp_in_ms(t_rules *rules)
 	timestamp_in_ms = (timestamp.tv_sec * 1000) + (timestamp.tv_usec / 1000);
 	return (timestamp_in_ms);
 }
+

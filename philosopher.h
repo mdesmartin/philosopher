@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philosopher.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mdesmart <mdesmart@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: mvogel <mvogel@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 17:20:50 by mdesmart          #+#    #+#             */
-/*   Updated: 2023/07/18 15:58:55 by mdesmart         ###   ########lyon.fr   */
+/*   Updated: 2023/07/18 18:22:24 by mvogel           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ int		philo_launcher(t_data *data);
 void	eat(t_philosopher *philosopher);
 int		check_mutex(pthread_mutex_t *mutex, int *mutex_value);
 int		timestamp_in_ms(t_rules *rules);
+void	check_death(t_philosopher *philosopher);
 
 /***********************************  UTILS  **********************************/
 
@@ -70,5 +71,7 @@ int		ft_atoi(const char *str);
 int		ft_isdigit(int c);
 size_t	ft_strlen(const char *s);
 void	display_logs(t_rules *rules, int philo_id, char *log);
+void	display_death(t_rules *rules, int philo_id, char *log);
+int		no_death(t_philosopher *philosopher);
 
 #endif
