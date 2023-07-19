@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philosopher.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mdesmart <mdesmart@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: mvogel <mvogel@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 17:20:50 by mdesmart          #+#    #+#             */
-/*   Updated: 2023/07/18 23:19:22 by mdesmart         ###   ########lyon.fr   */
+/*   Updated: 2023/07/19 11:13:44 by mvogel           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,6 @@ size_t	ft_strlen(const char *s);
 void	display_logs(t_rules *rules, int philo_id, char *log);
 void	display_death(t_rules *rules, int philo_id, char *log);
 int		no_death(t_philosopher *philosopher);
-void	*free_tab(void **tab);
+void	*free_tab(t_philosopher *tab);
 
 #endif

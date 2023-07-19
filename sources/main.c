@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mdesmart <mdesmart@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: mvogel <mvogel@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 14:58:17 by mdesmart          #+#    #+#             */
-/*   Updated: 2023/07/18 23:45:14 by mdesmart         ###   ########lyon.fr   */
+/*   Updated: 2023/07/19 11:22:49 by mvogel           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,20 @@
 
 void	free_n_destroy(t_data *data)
 {
+	printf("freendestroy\n");
 	int	i;
 
 	i = 0;
 	while (i < data->rules.nb_of_philo)
 	{
-		pthread_detach(data->philosopher[i].thread);
+		// pthread_detach(data->philosopher[i].thread);
 		pthread_mutex_destroy(&data->philosopher[i].m_left_fork);
 		i++;
 	}
 	pthread_mutex_destroy(&data->rules.m_one_philo_died);
 	pthread_mutex_destroy(&data->rules.m_all_philo_created);
-	free_tab((void **)data->philosopher);
+	free(data->philosopher);
+	// free_tab(data->philosopher);
 }
 
 int main(int argc, char **argv)
@@ -36,7 +38,7 @@ int main(int argc, char **argv)
 	{
 		if (!init_data(&data, argv))
 		{
-			if (philo_launcher(&data) == 2)
+			if (!philo_launcher(&data))
 				free_n_destroy(&data);
 		}
 	}

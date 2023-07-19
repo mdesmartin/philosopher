@@ -6,7 +6,7 @@
 /*   By: mvogel <mvogel@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/17 16:30:46 by mdesmart          #+#    #+#             */
-/*   Updated: 2023/07/18 18:23:11 by mvogel           ###   ########lyon.fr   */
+/*   Updated: 2023/07/19 11:35:32 by mvogel           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,10 +41,10 @@ int	check_mutex(pthread_mutex_t *mutex, int *mutex_value)
 	return (res);
 }
 
-// int	no_death(t_philosopher *philosopher)
-// {
-// 	check_death(philosopher);
-// 	if (!check_mutex(&philosopher->rules->m_one_philo_died, &philosopher->rules->one_philo_died))
-// 		return (1);
-// 	return (0);
-// }
+int	no_death(t_philosopher *philosopher)
+{
+	check_death(philosopher);
+	if (!check_mutex(&philosopher->rules->m_one_philo_died, &philosopher->rules->one_philo_died))
+		return (1);
+	return (0);
+}

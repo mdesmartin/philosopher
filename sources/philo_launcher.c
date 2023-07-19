@@ -6,7 +6,7 @@
 /*   By: mvogel <mvogel@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 13:39:44 by mdesmart          #+#    #+#             */
-/*   Updated: 2023/07/18 18:23:17 by mvogel           ###   ########lyon.fr   */
+/*   Updated: 2023/07/19 13:09:38 by mvogel           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,30 +36,41 @@ int	everyone_eated(t_philosopher *philosopher)
 
 void	check_death(t_philosopher *philosopher)
 {
+	if (timestamp_in_ms(philosopher->rules) == 0)
+		return ; 
 	if (timestamp_in_ms(philosopher->rules) - philosopher->last_meal_in_ms >= philosopher->rules->time_to_die)
 	{
 		pthread_mutex_lock(&philosopher->rules->m_one_philo_died);
-		display_death(philosopher->rules, philosopher->id, "died");
-		philosopher->rules->one_philo_died = 1;
+		if (philosopher->rules->one_philo_died == 0)
+		{
+			philosopher->rules->one_philo_died = 1;
+			display_death(philosopher->rules, philosopher->id, "died");
+		}
 		pthread_mutex_unlock(&philosopher->rules->m_one_philo_died);
 	}
 }
 
 void	*routine(t_philosopher *philosopher)
 {	
+	int beggin_sleeping;
+
+	beggin_sleeping = 0;
 	pthread_mutex_lock(&philosopher->rules->m_all_philo_created);
 	pthread_mutex_unlock(&philosopher->rules->m_all_philo_created);
 
 	while (!everyone_eated(philosopher) && !check_mutex(&philosopher->rules->m_one_philo_died, &philosopher->rules->one_philo_died))
 	{
-		// if (no_death(philosopher))
+		if (no_death(philosopher))
 			display_logs(philosopher->rules, philosopher->id, "is thinking");
-		// if (no_death(philosopher))
+		if (no_death(philosopher))
 			eat(philosopher);
 		// if (no_death(philosopher))
 		{
 			display_logs(philosopher->rules, philosopher->id, "is sleeping");
-			usleep(philosopher->rules->time_to_sleep * 1000);
+			beggin_sleeping = timestamp_in_ms(philosopher->rules);
+			while (timestamp_in_ms(philosopher->rules) < (beggin_sleeping + philosopher->rules->time_to_sleep))
+				usleep(philosopher->rules->time_to_sleep / 10);
+			// usleep(philosopher->rules->time_to_sleep * 1000);
 		}
 	}
 	return ((void*)philosopher);

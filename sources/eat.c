@@ -6,7 +6,7 @@
 /*   By: mvogel <mvogel@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 14:28:48 by mdesmart          #+#    #+#             */
-/*   Updated: 2023/07/18 17:32:21 by mvogel           ###   ########lyon.fr   */
+/*   Updated: 2023/07/19 13:09:57 by mvogel           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,8 @@ void	eat(t_philosopher *philosopher)
 	{
 		display_logs(philosopher->rules, philosopher->id, "is eating");
 		philosopher->last_meal_in_ms = timestamp_in_ms(philosopher->rules);
-		usleep(philosopher->rules->time_to_eat * 1000);
+		while (timestamp_in_ms(philosopher->rules) < (philosopher->last_meal_in_ms + philosopher->rules->time_to_eat))
+			usleep(philosopher->rules->time_to_eat / 4);
 		give_back_fork(&philosopher->m_left_fork, &philosopher->left_fork);
 		give_back_fork(philosopher->m_right_fork, philosopher->right_fork);
 		philosopher->nb_of_meals += 1;

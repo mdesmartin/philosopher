@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_lib.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mdesmart <mdesmart@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: mvogel <mvogel@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 16:27:17 by mvogel            #+#    #+#             */
-/*   Updated: 2023/07/18 23:19:07 by mdesmart         ###   ########lyon.fr   */
+/*   Updated: 2023/07/19 11:14:24 by mvogel           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,18 +66,18 @@ size_t	ft_strlen(const char *s)
 	return (i);
 }
 
-void	*free_tab(void **tab)
-{
-	int	i;
+// void	*free_tab(t_philosopher *tab)
+// {
+// 	int	i;
 
-	i = 0;
-	if (!tab)
-		return (NULL);
-	while (tab[i] != NULL)
-	{
-		free(tab[i]);
-		i++;
-	}
-	free(tab);
-	return (NULL);
-}
+// 	i = 0;
+// 	if (!tab)
+// 		return (NULL);
+// 	while (tab[i] != NULL)
+// 	{
+// 		free(tab[i]);
+// 		i++;
+// 	}
+// 	free(tab);
+// 	return (NULL);
+// }
