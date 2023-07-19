@@ -6,7 +6,7 @@
 /*   By: mvogel <mvogel@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 14:58:17 by mdesmart          #+#    #+#             */
-/*   Updated: 2023/07/19 11:22:49 by mvogel           ###   ########lyon.fr   */
+/*   Updated: 2023/07/19 17:39:18 by mvogel           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	free_n_destroy(t_data *data)
 {
-	printf("freendestroy\n");
+	// printf("freendestroy\n");
 	int	i;
 
 	i = 0;

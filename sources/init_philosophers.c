@@ -6,7 +6,7 @@
 /*   By: mvogel <mvogel@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/10 07:57:47 by mdesmart          #+#    #+#             */
-/*   Updated: 2023/07/18 16:50:46 by mvogel           ###   ########lyon.fr   */
+/*   Updated: 2023/07/19 17:34:35 by mvogel           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ void	give_right_fork(t_philosopher *philosopher, int nb_of_philo)
 			philosopher[i].right_fork = &philosopher[i + 1].left_fork;
 			philosopher[i].m_right_fork = &philosopher[i + 1].m_left_fork;
 		}
+		//printf("Id du philo : %i, droite : %p, gauche : %p\n", i, philosopher[i].m_right_fork, &philosopher[i].m_left_fork);
 		i++;
 	}
 }

@@ -6,48 +6,83 @@
 /*   By: mvogel <mvogel@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 14:28:48 by mdesmart          #+#    #+#             */
-/*   Updated: 2023/07/19 13:09:57 by mvogel           ###   ########lyon.fr   */
+/*   Updated: 2023/07/19 17:59:17 by mvogel           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../philosopher.h"
 
-int take_fork(pthread_mutex_t *mutex, int *fork, t_philosopher *philosopher)
+int	everyone_eated(t_philosopher *philosopher)
 {
-	while (1)
+	int	i;
+
+	i = 0;
+	if (philosopher->rules->must_eat_time == 0)
+		return (0);
+	while (i < philosopher->rules->nb_of_philo)
 	{
-		pthread_mutex_lock(mutex);
-		if (*fork == 1)
-		{
-			*fork = 0;
-			display_logs(philosopher->rules, philosopher->id, "has taken a fork");
-			pthread_mutex_unlock(mutex);
-			return (1);
-		}
-		else
-			pthread_mutex_unlock(mutex);
+		if (philosopher->nb_of_meals < philosopher->rules->must_eat_time)
+			return (0);
+		i++;
 	}
-	return (0);
+	return (1);
 }
 
-void give_back_fork(pthread_mutex_t *mutex, int *fork)
+void give_back_fork(t_philosopher *philosopher)
 {
-	pthread_mutex_lock(mutex);
-	*fork = 1;
-	pthread_mutex_unlock(mutex);
+	pthread_mutex_lock(&philosopher->m_left_fork);
+	philosopher->left_fork = 1;
+	pthread_mutex_unlock(&philosopher->m_left_fork);
+	pthread_mutex_lock(philosopher->m_right_fork);
+	*philosopher->right_fork = 1;
+	pthread_mutex_unlock(philosopher->m_right_fork);
+	
+}
+
+int take_fork(t_philosopher *philosopher)
+{
+	int	took[2];
+
+	took[0] = 0;
+	took[1] = 0;
+	while (no_death(philosopher) && (!took[0] || !took[1]))
+	{
+		if (took[0] == 0)
+		{
+			pthread_mutex_lock(&philosopher->m_left_fork);
+			if (philosopher->left_fork == 1)
+			{
+				philosopher->left_fork = 0;
+				display_logs(philosopher, "has taken a fork");
+				took[0] = 1;
+			}
+			pthread_mutex_unlock(&philosopher->m_left_fork);
+		}
+		if (took[1] == 0)
+		{
+			pthread_mutex_lock(philosopher->m_right_fork);
+			if (*philosopher->right_fork == 1)
+			{
+				*philosopher->right_fork = 0;
+				display_logs(philosopher, "has taken a fork");
+				took[1] = 1;
+			}
+			pthread_mutex_unlock(philosopher->m_right_fork);
+		}
+		// if (!took[0] || !took[1])
+		// usleep(400);
+	}
+	return (1);
 }
 
 void	eat(t_philosopher *philosopher)
 {
-	if (take_fork(&philosopher->m_left_fork, &philosopher->left_fork, philosopher) &&
-	take_fork(philosopher->m_right_fork, philosopher->right_fork, philosopher))
+	if (take_fork(philosopher))
 	{
-		display_logs(philosopher->rules, philosopher->id, "is eating");
+		display_logs(philosopher, "is eating");
 		philosopher->last_meal_in_ms = timestamp_in_ms(philosopher->rules);
-		while (timestamp_in_ms(philosopher->rules) < (philosopher->last_meal_in_ms + philosopher->rules->time_to_eat))
-			usleep(philosopher->rules->time_to_eat / 4);
-		give_back_fork(&philosopher->m_left_fork, &philosopher->left_fork);
-		give_back_fork(philosopher->m_right_fork, philosopher->right_fork);
+		philo_pause(philosopher, philosopher->last_meal_in_ms, philosopher->rules->time_to_eat);
+		give_back_fork(philosopher);
 		philosopher->nb_of_meals += 1;
 	}
 }

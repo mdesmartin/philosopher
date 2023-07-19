@@ -6,7 +6,7 @@
 /*   By: mvogel <mvogel@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 17:20:50 by mdesmart          #+#    #+#             */
-/*   Updated: 2023/07/19 11:13:44 by mvogel           ###   ########lyon.fr   */
+/*   Updated: 2023/07/19 15:34:45 by mvogel           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ typedef struct s_rules
 	pthread_mutex_t	m_one_philo_died;
 	int				one_philo_died;
 	struct timeval	begin_time;
+	pthread_mutex_t m_printf;
 }				t_rules;
 
 typedef struct s_philosopher
@@ -44,6 +45,7 @@ typedef struct s_philosopher
 	int 			*right_fork;//pointeur vers la fourchette du voisin de droite
 	int				nb_of_meals;
 	int				last_meal_in_ms;
+	int				last_sleep_in_ms;
 	t_rules			*rules;
 }				t_philosopher;
 
@@ -63,6 +65,7 @@ void	eat(t_philosopher *philosopher);
 int		check_mutex(pthread_mutex_t *mutex, int *mutex_value);
 int		timestamp_in_ms(t_rules *rules);
 void	check_death(t_philosopher *philosopher);
+int		everyone_eated(t_philosopher *philosopher);
 
 /***********************************  UTILS  **********************************/
 
@@ -70,9 +73,9 @@ void	ft_putstr_fd(char *s, int fd);
 int		ft_atoi(const char *str);
 int		ft_isdigit(int c);
 size_t	ft_strlen(const char *s);
-void	display_logs(t_rules *rules, int philo_id, char *log);
-void	display_death(t_rules *rules, int philo_id, char *log);
+void	display_logs(t_philosopher *philosopher, char *log);
 int		no_death(t_philosopher *philosopher);
 void	*free_tab(t_philosopher *tab);
+void	philo_pause(t_philosopher *philosopher, int last_action, int time_to_action);
 
 #endif

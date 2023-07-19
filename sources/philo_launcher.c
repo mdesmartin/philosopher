@@ -6,7 +6,7 @@
 /*   By: mvogel <mvogel@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 13:39:44 by mdesmart          #+#    #+#             */
-/*   Updated: 2023/07/19 13:09:38 by mvogel           ###   ########lyon.fr   */
+/*   Updated: 2023/07/19 18:03:34 by mvogel           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,62 +18,29 @@
 
 // tant que tous les philos sont en vie faire la routine sinon stop, clean and free and destroy tout, pour savoir si en vie wait une valeur de retour ?
 
-int	everyone_eated(t_philosopher *philosopher)
-{
-	int	i;
-
-	i = 0;
-	if (philosopher->rules->must_eat_time == 0)
-		return (0);
-	while (i < philosopher->rules->nb_of_philo)
-	{
-		if (philosopher->nb_of_meals < philosopher->rules->must_eat_time)
-			return (0);
-		i++;
-	}
-	return (1);
-}
-
-void	check_death(t_philosopher *philosopher)
-{
-	if (timestamp_in_ms(philosopher->rules) == 0)
-		return ; 
-	if (timestamp_in_ms(philosopher->rules) - philosopher->last_meal_in_ms >= philosopher->rules->time_to_die)
-	{
-		pthread_mutex_lock(&philosopher->rules->m_one_philo_died);
-		if (philosopher->rules->one_philo_died == 0)
-		{
-			philosopher->rules->one_philo_died = 1;
-			display_death(philosopher->rules, philosopher->id, "died");
-		}
-		pthread_mutex_unlock(&philosopher->rules->m_one_philo_died);
-	}
-}
-
 void	*routine(t_philosopher *philosopher)
 {	
-	int beggin_sleeping;
-
-	beggin_sleeping = 0;
 	pthread_mutex_lock(&philosopher->rules->m_all_philo_created);
 	pthread_mutex_unlock(&philosopher->rules->m_all_philo_created);
-
-	while (!everyone_eated(philosopher) && !check_mutex(&philosopher->rules->m_one_philo_died, &philosopher->rules->one_philo_died))
+	// if (philosopher->id == 1)
+	// 	printf("left %p\n", &philosopher->m_left_fork);
+	// if (philosopher->id == 10)
+	// 	printf("right %p\n", &philosopher->m_right_fork);
+	if (philosopher->id % 2 == 0)
+		usleep(2000);//jusqua 60k
+	while (!everyone_eated(philosopher) && no_death(philosopher))
 	{
-		if (no_death(philosopher))
-			display_logs(philosopher->rules, philosopher->id, "is thinking");
+		display_logs(philosopher, "is thinking");
 		if (no_death(philosopher))
 			eat(philosopher);
-		// if (no_death(philosopher))
+		if (no_death(philosopher))
 		{
-			display_logs(philosopher->rules, philosopher->id, "is sleeping");
-			beggin_sleeping = timestamp_in_ms(philosopher->rules);
-			while (timestamp_in_ms(philosopher->rules) < (beggin_sleeping + philosopher->rules->time_to_sleep))
-				usleep(philosopher->rules->time_to_sleep / 10);
-			// usleep(philosopher->rules->time_to_sleep * 1000);
+			display_logs(philosopher, "is sleeping");
+			philosopher->last_sleep_in_ms = timestamp_in_ms(philosopher->rules);
+			philo_pause(philosopher, philosopher->last_sleep_in_ms, philosopher->rules->time_to_sleep);
 		}
 	}
-	return ((void*)philosopher);
+	return (NULL);
 }
 
 int	philo_launcher(t_data *data)

@@ -2,7 +2,8 @@ NAME = philosopher
 DEBUG = no
 
 CFLAGS = -Wall -Wextra -Werror -pthread
-DFLAGS = -g3 -fsanitize=leak -fsanitize=address -fsanitize=pointer-subtract -fsanitize=pointer-compare -fsanitize=undefined
+# DFLAGS = -g3 -fsanitize=leak -fsanitize=address -fsanitize=pointer-subtract -fsanitize=pointer-compare -fsanitize=undefined
+DGLAGS = -g3 -fsanitize=thread
 
 ifeq ($(DEBUG), yes)
 CFLAGS += $(DFLAGS)

@@ -29,6 +29,8 @@ int init_rules(t_data *data, char **argv)//to complete
 		return (1);
 	if (pthread_mutex_init(&rules.m_one_philo_died, NULL) != 0)
 		return (1);
+	if (pthread_mutex_init(&rules.m_printf, NULL) != 0)
+		return (1);
 	rules.one_philo_died = 0;
 	data->rules = rules;
 	return (0);

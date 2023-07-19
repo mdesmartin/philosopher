@@ -6,7 +6,7 @@
 /*   By: mvogel <mvogel@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 15:00:19 by mdesmart          #+#    #+#             */
-/*   Updated: 2023/07/18 17:29:45 by mvogel           ###   ########lyon.fr   */
+/*   Updated: 2023/07/19 17:58:37 by mvogel           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,3 +25,8 @@ int	timestamp_in_ms(t_rules *rules)
 	return (timestamp_in_ms);
 }
 
+void	philo_pause(t_philosopher *philosopher, int last_action, int time_to_action)
+{
+	while (no_death(philosopher) && timestamp_in_ms(philosopher->rules) < (last_action + time_to_action))
+			usleep(500);
+}
