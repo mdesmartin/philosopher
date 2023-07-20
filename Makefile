@@ -2,8 +2,8 @@ NAME = philosopher
 DEBUG = no
 
 CFLAGS = -Wall -Wextra -Werror -pthread
-# DFLAGS = -g3 -fsanitize=leak -fsanitize=address -fsanitize=pointer-subtract -fsanitize=pointer-compare -fsanitize=undefined
-DGLAGS = -g3 -fsanitize=thread
+DFLAGS = -g3 -fsanitize=leak -fsanitize=address -fsanitize=pointer-subtract -fsanitize=pointer-compare -fsanitize=undefined
+# DGLAGS = -g3 -fsanitize=thread
 
 ifeq ($(DEBUG), yes)
 CFLAGS += $(DFLAGS)
@@ -12,14 +12,14 @@ endif
 DIR_SRC =	sources/
 
 LST_SRC =	main.c				\
-			check_arg.c			\
+			death.c				\
+			display.c			\
 			eat.c				\
-			utils.c				\
-			utils_lib.c			\
-			philo_launcher.c	\
-			init_structures.c	\
+			init_data.c			\
 			init_philosophers.c \
-			time.c
+			launcher.c			\
+			time.c				\
+			utils.c
 			
 SOURCES	=	$(addprefix $(DIR_SRC), $(LST_SRC))
 

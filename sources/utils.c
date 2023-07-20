@@ -5,69 +5,79 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: mvogel <mvogel@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/17 16:30:46 by mdesmart          #+#    #+#             */
-/*   Updated: 2023/07/20 13:23:49 by mvogel           ###   ########lyon.fr   */
+/*   Created: 2022/11/08 16:27:17 by mvogel            #+#    #+#             */
+/*   Updated: 2023/07/20 14:26:10 by mvogel           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../philosopher.h"
 
-void	display_logs(t_philosopher *philosopher, char *log)
+int	ft_atoi(const char *str)
 {
-	int	timestamp;
+	long	i;
+	long	res;
+	int		sign;
 
-	timestamp = timestamp_in_ms(philosopher->rules);
-	pthread_mutex_lock(&philosopher->rules->m_printf);
-	if (no_death(philosopher))
-		printf("%06d %d %s\n", timestamp, philosopher->id, log);
-	pthread_mutex_unlock(&philosopher->rules->m_printf);
-}
-
-void	display_death(t_philosopher *philosopher, char *log)
-{
-	int	timestamp;
-
-	timestamp = timestamp_in_ms(philosopher->rules);
-	pthread_mutex_lock(&philosopher->rules->m_printf);
-	printf("%06d %d %s\n", timestamp, philosopher->id, log);
-	pthread_mutex_unlock(&philosopher->rules->m_printf);
-}
-
-int	check_mutex(pthread_mutex_t *mutex, int *mutex_value)
-{
-	int	res;
-
+	i = 0;
 	res = 0;
-	pthread_mutex_lock(mutex);
-	if (*mutex_value > 0)
-		res = 1;
-	pthread_mutex_unlock(mutex);
+	sign = 1;
+	while ((str[i] >= 9 && str[i] <= 13) || str[i] == 32)
+		i++;
+	if (str[i] == '+' || str[i] == '-')
+	{
+		if (str[i] == '-')
+			sign = -1;
+		i++;
+	}
+	while (str[i] >= '0' && str[i] <= '9')
+	{
+		if (res != ((res * 10) + ((str[i] - 48) * sign)) / 10)
+			return ((sign + 1) / 2 / -1);
+		res = res * 10 + ((str[i] - 48) * sign);
+		i++;
+	}
 	return (res);
 }
 
-void	check_death(t_philosopher *philosopher)
+void	ft_putstr_fd(char *s, int fd)
 {
-	int	current_time;
-
-	current_time = timestamp_in_ms(philosopher->rules);
-	if (current_time - philosopher->last_meal_in_ms >= \
-	philosopher->rules->time_to_die)
-	{
-		pthread_mutex_lock(&philosopher->rules->m_one_philo_died);
-		if (philosopher->rules->one_philo_died == 0)
-		{
-			philosopher->rules->one_philo_died = philosopher->id;
-			display_death(philosopher, "died");
-		}
-		pthread_mutex_unlock(&philosopher->rules->m_one_philo_died);
-	}
+	if (!s)
+		return ;
+	write(fd, s, ft_strlen(s));
 }
 
-int	no_death(t_philosopher *philosopher)
+int	ft_isdigit(int c)
 {
-	check_death(philosopher);
-	if (!check_mutex(&philosopher->rules->m_one_philo_died, \
-	&philosopher->rules->one_philo_died))
+	if (c >= '0' && c <= '9')
 		return (1);
-	return (0);
+	else
+		return (0);
+}
+
+size_t	ft_strlen(const char *s)
+{
+	size_t	i;
+
+	i = 0;
+	if (!s)
+		return (i);
+	while (s[i] != '\0')
+		i++;
+	return (i);
+}
+
+void	free_n_destroy(t_data *data)
+{
+	int	i;
+
+	i = 0;
+	while (i < data->rules.nb_of_philo)
+	{
+		pthread_mutex_destroy(&data->philosopher[i].m_left_fork);
+		i++;
+	}
+	pthread_mutex_destroy(&data->rules.m_one_philo_died);
+	pthread_mutex_destroy(&data->rules.m_all_philo_created);
+		if (data->philosopher)
+	free(data->philosopher);
 }

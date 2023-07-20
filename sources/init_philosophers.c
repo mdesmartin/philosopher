@@ -6,7 +6,7 @@
 /*   By: mvogel <mvogel@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/10 07:57:47 by mdesmart          #+#    #+#             */
-/*   Updated: 2023/07/20 13:24:13 by mvogel           ###   ########lyon.fr   */
+/*   Updated: 2023/07/20 14:08:50 by mvogel           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int	give_left_fork(t_philosopher *philosopher, int nb_of_philo)
 	{
 		philosopher[i].left_fork = 1;
 		if (pthread_mutex_init(&philosopher[i].m_left_fork, NULL) != 0)
-			return (1);
+			return (display_error("In initializing pilosophers left_fork\n"), 1);
 		i++;
 	}
 	return (0);
@@ -73,7 +73,7 @@ int	init_philosophers(t_data *data, t_rules rules)
 		return (1);
 	give_data(data, philosopher, rules.nb_of_philo);
 	if (give_left_fork(philosopher, rules.nb_of_philo) != 0)
-		return (1);
+		return (free(philosopher), 1);
 	give_right_fork(philosopher, rules.nb_of_philo);
 	data->philosopher = philosopher;
 	return (0);

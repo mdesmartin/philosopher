@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   philo_launcher.c                                   :+:      :+:    :+:   */
+/*   launcher.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mvogel <mvogel@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 13:39:44 by mdesmart          #+#    #+#             */
-/*   Updated: 2023/07/20 13:24:57 by mvogel           ###   ########lyon.fr   */
+/*   Updated: 2023/07/20 14:25:26 by mvogel           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int	philo_launcher(t_data *data)
 	{
 		if (pthread_create(&data->philosopher[i].thread, NULL, \
 		(void *)&routine, &data->philosopher[i]) != 0)
-			return (1);
+			return (free_n_destroy(data), display_error("In initializing pthread\n"), 1);
 		i++;
 	}
 	gettimeofday(&data->rules.begin_time, NULL);
@@ -53,7 +53,7 @@ int	philo_launcher(t_data *data)
 	while (i < data->rules.nb_of_philo)
 	{
 		if (pthread_join(data->philosopher[i].thread, NULL) != 0)
-			return (2);
+			return (display_error("In joinning pthread\n"), 1);
 		i++;
 	}
 	return (0);

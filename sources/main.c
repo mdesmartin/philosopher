@@ -6,25 +6,34 @@
 /*   By: mvogel <mvogel@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 14:58:17 by mdesmart          #+#    #+#             */
-/*   Updated: 2023/07/20 13:24:28 by mvogel           ###   ########lyon.fr   */
+/*   Updated: 2023/07/20 14:26:01 by mvogel           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../philosopher.h"
 
-void	free_n_destroy(t_data *data)
+int	check_arg(int argc, char **argv)
 {
 	int	i;
+	int	j;
 
-	i = 0;
-	while (i < data->rules.nb_of_philo)
+	i = 1;
+	if (argc > 6 || argc < 5)
+		return (display_error("please complete arguments with : \
+		number_of_philosophers time_to_die time_to_eat time_to_sleep \
+		[number_of_times_each_philosopher_must_eat]\n"));
+	while (argv[i])
 	{
-		pthread_mutex_destroy(&data->philosopher[i].m_left_fork);
+		j = 0;
+		while (argv[i][j])
+		{
+			if (!ft_isdigit(argv[i][j]) || argv[i][j] <= 0)
+				return (display_error("one arg is not a valid number\n"));
+			j++;
+		}
 		i++;
 	}
-	pthread_mutex_destroy(&data->rules.m_one_philo_died);
-	pthread_mutex_destroy(&data->rules.m_all_philo_created);
-	free(data->philosopher);
+	return (0);
 }
 
 int	main(int argc, char **argv)

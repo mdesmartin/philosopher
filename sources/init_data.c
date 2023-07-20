@@ -25,11 +25,11 @@ int	init_rules(t_data *data, char **argv)
 	else
 		rules.must_eat_time = 0;
 	if (pthread_mutex_init(&rules.m_all_philo_created, NULL) != 0)
-		return (1);
+		return (display_error("In initializing m_all_philo_created\n"), 1);
 	if (pthread_mutex_init(&rules.m_one_philo_died, NULL) != 0)
-		return (1);
+		return (display_error("In initializing m_one_philo_died\n"), 1);
 	if (pthread_mutex_init(&rules.m_printf, NULL) != 0)
-		return (1);
+		return (display_error("In initializing m_printf\n"), 1);
 	rules.one_philo_died = 0;
 	data->rules = rules;
 	return (0);
@@ -37,7 +37,8 @@ int	init_rules(t_data *data, char **argv)
 
 int	init_data(t_data *data, char **argv)
 {
-	init_rules(data, argv);
+	if (init_rules(data, argv))
+		return (1);
 	if (init_philosophers(data, data->rules))
 		return (1);
 	return (0);

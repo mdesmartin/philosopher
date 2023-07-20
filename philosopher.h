@@ -6,7 +6,7 @@
 /*   By: mvogel <mvogel@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 17:20:50 by mdesmart          #+#    #+#             */
-/*   Updated: 2023/07/20 13:21:22 by mvogel           ###   ########lyon.fr   */
+/*   Updated: 2023/07/20 14:25:51 by mvogel           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 # include <stdio.h>
 # include <sys/time.h>
 
-/********************************  structrures  *******************************/
+/********************************  STRUCTURES  ********************************/
 
 typedef struct s_rules
 {
@@ -54,27 +54,43 @@ typedef struct s_data
 	t_philosopher	*philosopher;
 }				t_data;
 
-/***********************************  -----  **********************************/
+/***********************************  DEATH  **********************************/
+
+void	check_death(t_philosopher *philosopher);
+int		check_mutex(pthread_mutex_t *mutex, int *mutex_value);
+int		no_death(t_philosopher *philosopher);
+
+/**********************************  DISPLAY  *********************************/
+
+void	display_death(t_philosopher *philosopher, char *log);
+int		display_error(char *message);
+void	display_logs(t_philosopher *philosopher, char *log);
+
+/************************************  EAT  ***********************************/
+
+void	eat(t_philosopher *philosopher);
+int		everyone_eated(t_philosopher *philosopher);
+
+/************************************  INIT  **********************************/
 
 int		init_data(t_data *data, char **argv);
 int		init_philosophers(t_data *data, t_rules rules);
-int		check_arg(int argc, char **argv);
+
+/**********************************  LAUNCHER  ********************************/
+
 int		philo_launcher(t_data *data);
-void	eat(t_philosopher *philosopher);
-int		check_mutex(pthread_mutex_t *mutex, int *mutex_value);
+
+/************************************  TIME  **********************************/
+
+void	p_pause(t_philosopher *philosopher, int last_action, int time_action);
 int		timestamp_in_ms(t_rules *rules);
-void	check_death(t_philosopher *philosopher);
-int		everyone_eated(t_philosopher *philosopher);
 
 /***********************************  UTILS  **********************************/
 
+void	free_n_destroy(t_data *data);
 void	ft_putstr_fd(char *s, int fd);
 int		ft_atoi(const char *str);
 int		ft_isdigit(int c);
 size_t	ft_strlen(const char *s);
-void	display_logs(t_philosopher *philosopher, char *log);
-int		no_death(t_philosopher *philosopher);
-void	*free_tab(t_philosopher *tab);
-void	p_pause(t_philosopher *philosopher, int last_action, int time_action);
 
 #endif
