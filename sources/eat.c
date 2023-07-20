@@ -6,7 +6,7 @@
 /*   By: mvogel <mvogel@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 14:28:48 by mdesmart          #+#    #+#             */
-/*   Updated: 2023/07/20 13:23:20 by mvogel           ###   ########lyon.fr   */
+/*   Updated: 2023/07/20 14:33:50 by mvogel           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,8 +67,8 @@ int	take_forks(t_philosopher *philosopher)
 				fork_taken(philosopher, philosopher->right_fork, &took[1]);
 			pthread_mutex_unlock(philosopher->m_right_fork);
 		}
-		// if (!took[0] || !took[1])
-		// usleep(400);
+		if (!took[0] || !took[1])
+		usleep(400);
 	}
 	return (1);
 }
