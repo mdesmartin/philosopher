@@ -6,7 +6,7 @@
 /*   By: mvogel <mvogel@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 17:20:50 by mdesmart          #+#    #+#             */
-/*   Updated: 2023/07/19 15:34:45 by mvogel           ###   ########lyon.fr   */
+/*   Updated: 2023/07/20 13:21:22 by mvogel           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@
 
 /********************************  structrures  *******************************/
 
-
 typedef struct s_rules
 {
 	int				nb_of_philo;
@@ -28,26 +27,26 @@ typedef struct s_rules
 	int				time_to_eat;
 	int				time_to_sleep;
 	int				must_eat_time;
-	pthread_mutex_t m_all_philo_created;
+	pthread_mutex_t	m_all_philo_created;
 	pthread_mutex_t	m_one_philo_died;
 	int				one_philo_died;
 	struct timeval	begin_time;
-	pthread_mutex_t m_printf;
-}				t_rules;
+	pthread_mutex_t	m_printf;
+}					t_rules;
 
 typedef struct s_philosopher
 {
 	int				id;
 	pthread_t		thread;
-	pthread_mutex_t m_left_fork;//unlock
+	pthread_mutex_t	m_left_fork;
 	int				left_fork;
-	pthread_mutex_t *m_right_fork;
-	int 			*right_fork;//pointeur vers la fourchette du voisin de droite
+	pthread_mutex_t	*m_right_fork;
+	int				*right_fork;
 	int				nb_of_meals;
 	int				last_meal_in_ms;
 	int				last_sleep_in_ms;
 	t_rules			*rules;
-}				t_philosopher;
+}					t_philosopher;
 
 typedef struct s_data
 {
@@ -76,6 +75,6 @@ size_t	ft_strlen(const char *s);
 void	display_logs(t_philosopher *philosopher, char *log);
 int		no_death(t_philosopher *philosopher);
 void	*free_tab(t_philosopher *tab);
-void	philo_pause(t_philosopher *philosopher, int last_action, int time_to_action);
+void	p_pause(t_philosopher *philosopher, int last_action, int time_action);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: mvogel <mvogel@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 16:27:17 by mvogel            #+#    #+#             */
-/*   Updated: 2023/07/19 11:14:24 by mvogel           ###   ########lyon.fr   */
+/*   Updated: 2023/07/20 13:18:18 by mvogel           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,19 +65,3 @@ size_t	ft_strlen(const char *s)
 		i++;
 	return (i);
 }
-
-// void	*free_tab(t_philosopher *tab)
-// {
-// 	int	i;
-
-// 	i = 0;
-// 	if (!tab)
-// 		return (NULL);
-// 	while (tab[i] != NULL)
-// 	{
-// 		free(tab[i]);
-// 		i++;
-// 	}
-// 	free(tab);
-// 	return (NULL);
-// }

@@ -12,8 +12,7 @@
 
 #include "../philosopher.h"
 
-// a malloc ??
-int init_rules(t_data *data, char **argv)//to complete
+int	init_rules(t_data *data, char **argv)
 {
 	t_rules	rules;
 
@@ -39,9 +38,7 @@ int init_rules(t_data *data, char **argv)//to complete
 int	init_data(t_data *data, char **argv)
 {
 	init_rules(data, argv);
-	// printf("data1\n");
 	if (init_philosophers(data, data->rules))
-		return (1);//do something for the error
-	// printf("data2\n");
+		return (1);
 	return (0);
 }
