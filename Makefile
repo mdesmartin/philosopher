@@ -3,7 +3,6 @@ DEBUG = no
 
 CFLAGS = -Wall -Wextra -Werror -pthread
 DFLAGS = -g3 -fsanitize=leak -fsanitize=address -fsanitize=pointer-subtract -fsanitize=pointer-compare -fsanitize=undefined
-# DGLAGS = -g3 -fsanitize=thread
 
 ifeq ($(DEBUG), yes)
 CFLAGS += $(DFLAGS)
@@ -24,9 +23,9 @@ LST_SRC =	main.c				\
 SOURCES	=	$(addprefix $(DIR_SRC), $(LST_SRC))
 
 DIR_OBJ	=	objects/
-OBJECTS = 	$(patsubst $(SOURCES)%.c, $(DIR_OBJ)%.o, $(SOURCES))
+OBJECTS = 	$(patsubst $(DIR_SRC)%.c, $(DIR_OBJ)%.o, $(SOURCES))
 
-HEADERS =	$(DIR_SRC)philosopher.h
+HEADERS =	philosopher.h
 
 #  ==============================  RULES  ==============================  #
 
@@ -57,7 +56,6 @@ $(DIR_OBJ)	:
 	@mkdir -p $(DIR_OBJ)
 
 $(DIR_OBJ)%.o: $(DIR_SRC)%.c $(HEADERS)
-	echo imhere
 	cc $(CFLAGS) -c $< -o $@
 
 #  =============================  OPTIONS  =============================  #
