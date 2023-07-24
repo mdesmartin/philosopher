@@ -6,7 +6,7 @@
 /*   By: mvogel <mvogel@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 13:39:44 by mdesmart          #+#    #+#             */
-/*   Updated: 2023/07/20 14:25:26 by mvogel           ###   ########lyon.fr   */
+/*   Updated: 2023/07/21 10:34:25 by mvogel           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	*routine(t_philosopher *philosopher)
 	pthread_mutex_lock(&philosopher->rules->m_all_philo_created);
 	pthread_mutex_unlock(&philosopher->rules->m_all_philo_created);
 	if (philosopher->id % 2 == 0)
-		usleep(2000);//up to 60k
+		usleep(2000);
 	while (!everyone_eated(philosopher) && no_death(philosopher))
 	{
 		display_logs(philosopher, "is thinking");
@@ -44,7 +44,8 @@ int	philo_launcher(t_data *data)
 	{
 		if (pthread_create(&data->philosopher[i].thread, NULL, \
 		(void *)&routine, &data->philosopher[i]) != 0)
-			return (free_n_destroy(data), display_error("In initializing pthread\n"), 1);
+			return (free_n_destroy(data), \
+			display_error("In initializing pthread\n"), 1);
 		i++;
 	}
 	gettimeofday(&data->rules.begin_time, NULL);

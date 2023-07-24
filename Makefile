@@ -1,4 +1,4 @@
-NAME = philosopher
+NAME = philo
 DEBUG = no
 
 CFLAGS = -Wall -Wextra -Werror -pthread

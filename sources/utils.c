@@ -6,7 +6,7 @@
 /*   By: mvogel <mvogel@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 16:27:17 by mvogel            #+#    #+#             */
-/*   Updated: 2023/07/20 14:26:10 by mvogel           ###   ########lyon.fr   */
+/*   Updated: 2023/07/21 10:34:46 by mvogel           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,6 @@ void	free_n_destroy(t_data *data)
 	}
 	pthread_mutex_destroy(&data->rules.m_one_philo_died);
 	pthread_mutex_destroy(&data->rules.m_all_philo_created);
-		if (data->philosopher)
-	free(data->philosopher);
+	if (data->philosopher)
+		free(data->philosopher);
 }

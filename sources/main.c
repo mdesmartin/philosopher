@@ -6,7 +6,7 @@
 /*   By: mvogel <mvogel@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 14:58:17 by mdesmart          #+#    #+#             */
-/*   Updated: 2023/07/20 14:26:01 by mvogel           ###   ########lyon.fr   */
+/*   Updated: 2023/07/21 10:36:38 by mvogel           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,12 @@ int	check_arg(int argc, char **argv)
 
 	i = 1;
 	if (argc > 6 || argc < 5)
-		return (display_error("please complete arguments with : \
-		number_of_philosophers time_to_die time_to_eat time_to_sleep \
-		[number_of_times_each_philosopher_must_eat]\n"));
+	{
+		display_error("please complete arguments with number_of_");
+		ft_putstr_fd("philosophers time_to_die time_to_eat time_to_sleep ", 2);
+		ft_putstr_fd("[number_of_times_each_philosopher_must_eat]\n", 2);
+		return (1);
+	}
 	while (argv[i])
 	{
 		j = 0;
