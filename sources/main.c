@@ -6,7 +6,7 @@
 /*   By: mvogel <mvogel@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 14:58:17 by mdesmart          #+#    #+#             */
-/*   Updated: 2023/07/21 10:36:38 by mvogel           ###   ########lyon.fr   */
+/*   Updated: 2023/07/24 16:21:41 by mvogel           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,5 +53,3 @@ int	main(int argc, char **argv)
 	}
 	return (0);
 }
-
-// test 10 410 200 200
